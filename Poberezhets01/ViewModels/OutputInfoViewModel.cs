@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-using Poberezhets01.Models;
+﻿using System.Windows.Input;
 using Poberezhets01.Tools;
 using Poberezhets01.Tools.Managers;
 using Poberezhets01.Tools.Navigation;
@@ -9,22 +7,12 @@ namespace Poberezhets01.ViewModels
 {
     class OutputInfoViewModel: BaseViewModel
     {
-        private Person _person;
-        #region Fields
-        #endregion
-        
         #region Commands
         private ICommand _backCommand;
         private ICommand _closeCommand;
         #endregion
-      
 
         #region properties
-        public Person Person
-        {
-            get { return _person; }
-            set { _person = value; OnPropertyChanged(); }
-        }
         public string FirstName
         {
             get { return StationManager.CurrentUser.Name; }
@@ -37,9 +25,9 @@ namespace Poberezhets01.ViewModels
         {
             get { return StationManager.CurrentUser.Email; }
         }
-        public DateTime Birth
+        public string Birth
         {
-            get { return StationManager.CurrentUser.Birth ; }
+            get { return StationManager.CurrentUser.Birth.ToLongDateString(); }
         }
         public bool Adult
         {
@@ -59,25 +47,11 @@ namespace Poberezhets01.ViewModels
         }
         #endregion
         #region Commands
-        public ICommand BackCommand
-        {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(BackMenuCommand));
-            }
-        }
+        public ICommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand<object>(BackMenuCommand));
 
-        public ICommand CloseCommand
-        {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseImplementation));
-            }
-        }
+        public ICommand CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseImplementation));
+
         #endregion
-
-       
-       
         private void CloseImplementation(object obj)
         {
             StationManager.CloseApp();

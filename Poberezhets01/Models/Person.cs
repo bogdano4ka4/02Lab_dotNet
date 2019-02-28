@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Poberezhets01.Tools.Interfaces;
-
 namespace Poberezhets01.Models
-            
-    //TODO перевірити весь клас!!!
+
 {
-    internal class Person : INotifyPropertyChanged, IChinaHoroscope
+    internal class Person :  IChinaHoroscope
     {
         #region Fields
         private string _name;
@@ -63,12 +56,13 @@ namespace Poberezhets01.Models
             _name = name;
             _surname = surname;
             _email = email;
-            _birth = birth;
+            _birth =DateTime.MaxValue;//default value
             if (CalculateAge() >= 18) _isAdult = true;
             _sunSign = WestHor();
             _chineseSign = GiveChinaHoroscope(Birth);
             _isBirthday = CheckBirthday();
         }
+        //I dont know why we need this constructors, because we are not allowed to create person if each of field is not entered.
         public Person(string name, string surname, string email)
         {
             _name = name;
@@ -84,6 +78,7 @@ namespace Poberezhets01.Models
             _name = name;
             _surname = surname;
             _birth = birth;
+            _email = null;
             if (CalculateAge() >= 18) _isAdult = true;
             _sunSign = WestHor();
             _chineseSign = GiveChinaHoroscope(Birth);
@@ -102,39 +97,38 @@ namespace Poberezhets01.Models
             return year;
         }
         //method that return West Horoscope
-        private String WestHor()
+        private string WestHor()
         {
             if ((Birth.Month == 3 && Birth.Day >= 21) || (Birth.Month == 4 && Birth.Day <= 20))
-                return "Овен";
+                return "Aries";
             if ((Birth.Month == 4 && Birth.Day >= 21) || (Birth.Month == 5 && Birth.Day <= 21))
-                return "Телець";
+                return "Taurus";
             if ((Birth.Month == 5 && Birth.Day >= 22) || (Birth.Month == 6 && Birth.Day <= 21))
-                return "Близнюки";
+                return "Gemini";
             if ((Birth.Month == 6 && Birth.Day >= 22) || (Birth.Month == 7 && Birth.Day <= 22))
-                return "Овен";
+                return "Cancer";
             if ((Birth.Month == 7 && Birth.Day >= 23) || (Birth.Month == 8 && Birth.Day <= 21))
-                return "Лев";
+                return "Leo";
             if ((Birth.Month == 8 && Birth.Day >= 22) || (Birth.Month == 9 && Birth.Day <= 23))
-                return "Діва";
+                return "Virgo";
             if ((Birth.Month == 9 && Birth.Day >= 24) || (Birth.Month == 10 && Birth.Day <= 23))
-                return "Терези";
+                return "Libra";
             if ((Birth.Month == 10 && Birth.Day >= 24) || (Birth.Month == 11 && Birth.Day <= 22))
-                return "Скорпіон";
+                return "Scorpio";
             if ((Birth.Month == 11 && Birth.Day >= 23) || (Birth.Month == 12 && Birth.Day <= 22))
-                return "Стрілець";
+                return "Sagittarius";
             if ((Birth.Month == 12 && Birth.Day >= 24) || (Birth.Month == 1 && Birth.Day <= 23))
-                return "Козеріг";
+                return "Capricorn";
             if ((Birth.Month == 1 && Birth.Day >= 21) || (Birth.Month == 2 && Birth.Day <= 19))
-                return "Водолій";
+                return "Aquarius";
             if ((Birth.Month == 2 && Birth.Day >= 20) || (Birth.Month == 3 && Birth.Day <= 20))
-                return "Риба";
-            return "Zodiak";
+                return "Pisces";
+            return "sign";
         }
         private bool CheckBirthday()
         {
             DateTime today = Convert.ToDateTime(DateTime.Today);
-            DateTime birthday = Convert.ToDateTime(Birth);
-            if (today.Month == birthday.Month && today.Day == birthday.Day)
+            if (today.Month == Birth.Month && today.Day == Birth.Day)
                 return true;
             return false;
         }
@@ -145,13 +139,6 @@ namespace Poberezhets01.Models
             return Enum.GetName(typeof(ViewChinaHoroscope), year);
         }
         #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
         
     }
 }

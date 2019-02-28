@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Poberezhets01.Models;
+﻿using System.Collections.Generic;
+
 
 namespace Poberezhets01.Tools.Navigation
 {
@@ -18,7 +14,7 @@ namespace Poberezhets01.Tools.Navigation
             _viewsDictionary = new Dictionary<ViewType, INavigatable>();
         }
 
-        protected IContentOwner ContentOwner
+        private  IContentOwner ContentOwner
         {
             get { return _contentOwner; }
         }
@@ -30,9 +26,8 @@ namespace Poberezhets01.Tools.Navigation
 
         public void Navigate(ViewType viewType)
         {
-            //if (!ViewsDictionary.ContainsKey(viewType))
             ViewsDictionary.Remove(ViewType.OutputInfo);
-                InitializeView(viewType);
+            InitializeView(viewType);
             
             ContentOwner.ContentControl.Content = ViewsDictionary[viewType];
         }

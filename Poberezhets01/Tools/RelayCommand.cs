@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Poberezhets01.Tools
@@ -10,8 +6,8 @@ namespace Poberezhets01.Tools
     public class RelayCommand<T> : ICommand
     {
         #region Fields
-        readonly Action<T> _execute;
-        readonly Predicate<T> _canExecute;
+        private readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
         #endregion
 
         #region Constructors

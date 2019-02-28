@@ -48,3 +48,7 @@ C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\obj\Debu
 C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\obj\Debug\Poberezhets01.csproj.GenerateResource.cache
 C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\obj\Debug\Poberezhets01.csproj.CoreCompileInputs.cache
 C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\obj\Debug\Poberezhets01.csproj.CopyComplete
+C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\bin\Debug\EntityFramework.dll
+C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\bin\Debug\EntityFramework.xml
+C:\Users\Богдана\Desktop\c# лаби\Poberezhets01\Poberezhets01\bin\Debug\EntityFramework.SqlServer.xml

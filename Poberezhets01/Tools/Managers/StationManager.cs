@@ -4,13 +4,10 @@ namespace Poberezhets01.Tools.Managers
 {
     internal static class StationManager
     {
-        
-
         internal static Person CurrentUser { get; set; }
-
         internal static void CloseApp()
         {
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
     }
 }

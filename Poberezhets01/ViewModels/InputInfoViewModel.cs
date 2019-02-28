@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Poberezhets01.Models;
 using Poberezhets01.Tools;
 using Poberezhets01.Tools.Managers;
 using Poberezhets01.Tools.Navigation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Poberezhets01.ViewModels
 {
@@ -15,7 +17,8 @@ namespace Poberezhets01.ViewModels
         private string _firstName;
         private string _lastName;
         private string _email;
-        private DateTime? _birth; //TODO check if ? is nesseccary
+        private DateTime? _birth;
+        private DateTime _endDate;
         #endregion
 
         #region Commands
@@ -24,6 +27,18 @@ namespace Poberezhets01.ViewModels
         #endregion
 
         #region properties
+
+        public InputInfoViewModel()
+        {
+            _endDate = DateTime.Today;
+        }
+
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set { _endDate = value; }
+        }
+        
         public string FirstName
         {
             get { return _firstName; }
@@ -55,11 +70,13 @@ namespace Poberezhets01.ViewModels
         {
             get { return _birth; }
             set
-            {
+           {
                 _birth = value;
                 OnPropertyChanged();
             }
         }
+
+        
         #endregion
         #region Commands
         public ICommand ProccedCommand
@@ -79,24 +96,38 @@ namespace Poberezhets01.ViewModels
             }
         }
         #endregion
+
         private async void SignUpImplementation(object obj)
         {
             LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(100);
-               
+                try
+                {
+                    Thread.Sleep(1000);
+                    if (!new EmailAddressAttribute().IsValid(_email))
+                    {
+                        MessageBox.Show($"Email address {_email}. is not valid.");
+                        return false;
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show($"Email address {_email} is not valid");
+                    return false;
+                }
+                //TODO birthday ok method
+                IsBirthday();
+
                 return true;
 
             });
-            if (Birth != null)
-            {
-                Person person = new Person(FirstName, LastName, Email, (DateTime) Birth);
-                StationManager.CurrentUser = person;
-            }
-
+            Person person = new Person(FirstName, LastName, Email, (DateTime) Birth);
+            StationManager.CurrentUser = person;
             LoaderManager.Instance.HideLoader();
-            if (result) 
+            if (result)
                 NavigationManager.Instance.Navigate(ViewType.OutputInfo);
             FirstName = "";
             LastName = "";
@@ -104,18 +135,23 @@ namespace Poberezhets01.ViewModels
             Birth = null;
         }
 
+        private void IsBirthday()
+        {
+            DateTime birthday = (DateTime)_birth;
+            if (birthday.Day == DateTime.Today.Day
+                && birthday.Month == DateTime.Today.Month)
+                MessageBox.Show("Happy Birthday!");
+        }
+        
         private bool CanProceedExecute(object obj)
         {
-            return true;
-            //return !String.IsNullOrEmpty(_firstName) &&
-            //       !String.IsNullOrEmpty(_lastName) &&
-            //       !String.IsNullOrEmpty(_email) && !String.IsNullOrEmpty(_birth.ToString());
-            ////TODO check if date is !null or valid
+            return !String.IsNullOrEmpty(_firstName) &&
+                   !String.IsNullOrEmpty(_lastName) &&
+                   !String.IsNullOrEmpty(_email) && !String.IsNullOrEmpty(Birth.ToString());
         }
         private void CloseImplementation(object obj)
         {
             StationManager.CloseApp();
-          // Environment.Exit(0);
         }
     }
 }
