@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Poberezhets01.Tools;
 using Poberezhets01.Tools.Managers;
 using Poberezhets01.Tools.Navigation;
@@ -27,7 +28,7 @@ namespace Poberezhets01.ViewModels
         }
         public string Birth
         {
-            get { return StationManager.CurrentUser.Birth.ToLongDateString(); }
+            get { return StationManager.CurrentUser.Birth.ToShortDateString(); }
         }
         public bool Adult
         {

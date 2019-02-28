@@ -9,7 +9,6 @@ namespace Poberezhets01.Tools.Navigation
         {
 
         }
-
         protected override void InitializeView(ViewType viewType)
         {
             switch (viewType)

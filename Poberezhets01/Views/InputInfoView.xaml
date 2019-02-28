@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/bg.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition Height="70" />
@@ -27,7 +30,7 @@
         <controls:LabelAndTextControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Caption="Email" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
         <Label Grid.Row="3" Grid.Column="0" Content="Date of Birth:" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" FirstDayOfWeek="Monday" IsTodayHighlighted="True"  DisplayDateEnd="{Binding EndDate}" SelectedDate="{Binding Birth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" FirstDayOfWeek="Monday" IsTodayHighlighted="True" SelectedDate="{Binding Birth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Grid.Row="4" Grid.Column="0" Margin="10" Content="Proceed" Command="{Binding ProccedCommand}"/>
         <Button Grid.Row="4" Grid.Column="1"  Margin="10" Content="Close" Command="{Binding CloseCommand}"/>
 

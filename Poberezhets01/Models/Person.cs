@@ -56,7 +56,7 @@ namespace Poberezhets01.Models
             _name = name;
             _surname = surname;
             _email = email;
-            _birth =DateTime.MaxValue;//default value
+            _birth = birth;
             if (CalculateAge() >= 18) _isAdult = true;
             _sunSign = WestHor();
             _chineseSign = GiveChinaHoroscope(Birth);
