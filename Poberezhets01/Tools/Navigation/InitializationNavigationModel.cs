@@ -14,7 +14,6 @@ namespace Poberezhets01.Tools.Navigation
             switch (viewType)
             {
                 case ViewType.InputInfo:
-                    if (!ViewsDictionary.ContainsKey(viewType))
                         ViewsDictionary.Add(viewType, new InputInfoView());
                     break;
                 case ViewType.OutputInfo:

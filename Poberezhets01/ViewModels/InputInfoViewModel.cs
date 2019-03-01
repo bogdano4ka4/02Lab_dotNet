@@ -14,11 +14,7 @@ namespace Poberezhets01.ViewModels
     class InputInfoViewModel: BaseViewModel
     {
         #region Fields
-        private string _firstName;
-        private string _lastName;
-        private string _email;
-        private DateTime? _birth;
-        private DateTime _endDate;
+        private Person _user;
 
         #endregion
 
@@ -29,58 +25,18 @@ namespace Poberezhets01.ViewModels
 
         public InputInfoViewModel()
         {
-            _endDate=DateTime.Today;
+            _user = new Person("", "", "");
         }
-
         #region properties
-        public DateTime EndDate
+        public Person MyModel
         {
-            get { return _endDate; }
+            get { return _user; }
             set
             {
-                _endDate = value;
+                _user = value;
                 OnPropertyChanged();
             }
         }
-       
-        public string FirstName
-        {
-            get { return _firstName; }
-            set
-            {
-                _firstName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string LastName
-        {
-            get { return _lastName; }
-            set
-            {
-                _lastName = value;
-                OnPropertyChanged();
-            }
-        }
-        public string Email
-        {
-            get { return _email; }
-            set
-            {
-                _email = value;
-                OnPropertyChanged();
-            }
-        }
-        public DateTime? Birth
-        {
-            get { return _birth; }
-            set
-           {
-                _birth = value;
-                OnPropertyChanged();
-            }
-        }
-
         
         #endregion
         #region Commands
@@ -104,8 +60,7 @@ namespace Poberezhets01.ViewModels
 
         private async void SignUpImplementation(object obj)
         {
-            DateTime birth = (DateTime)_birth;
-
+            DateTime birth = (DateTime)MyModel.Birth;
 
             LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(() =>
@@ -113,39 +68,40 @@ namespace Poberezhets01.ViewModels
                 try
                 {
                     Thread.Sleep(500);
-                    if (!new EmailAddressAttribute().IsValid(_email))
+                    if (!new EmailAddressAttribute().IsValid(MyModel.Email))
                     {
-                        MessageBox.Show($"Email address {_email}. is not valid.");
+                        MessageBox.Show($"Email address {MyModel.Email}. is not valid.");
                         return false;
                     }
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show($"Email address {_email} is not valid");
+                    MessageBox.Show($"Email address {MyModel.Email} is not valid");
                     return false;
                 }
+
                 if (!GoodBirthday(birth)) return false;
                 IsBirthday();
                 return true;
 
             });
-            Person person = new Person(FirstName, LastName, Email, (DateTime)Birth);
-            StationManager.CurrentUser = person;
             LoaderManager.Instance.HideLoader();
             if (result)
+            {
+                StationManager.CurrentUser = _user;
                 NavigationManager.Instance.Navigate(ViewType.OutputInfo);
-            FirstName = "";
-            LastName = "";
-            Email = "";
-            Birth = null;
+            }
+
+
         }
 
         private bool GoodBirthday(DateTime birth)
         {
+            DateTime today=DateTime.Today;
             int year = 0;
-            if (birth.Month > _endDate.Month || (_endDate.Month == birth.Month && _endDate.Day < birth.Day))
-                year = _endDate.Year - birth.Year - 1;
-            else year = _endDate.Year - birth.Year;
+            if (birth.Month > today.Month || (today.Month == birth.Month && today.Day < birth.Day))
+                year = today.Year - birth.Year - 1;
+            else year = today.Year - birth.Year;
 
             if (year < 0 || year > 135)
             {
@@ -158,7 +114,7 @@ namespace Poberezhets01.ViewModels
 
         private void IsBirthday()
         {
-            DateTime birth = (DateTime)_birth;
+            DateTime birth = (DateTime)MyModel.Birth;
             if (birth.Day == DateTime.Today.Day
                 && birth.Month == DateTime.Today.Month)
                 MessageBox.Show("Happy Birthday!");
@@ -166,9 +122,9 @@ namespace Poberezhets01.ViewModels
         
         private bool CanProceedExecute(object obj)
         {
-            return !String.IsNullOrEmpty(_firstName) &&
-                   !String.IsNullOrEmpty(_lastName) &&
-                   !String.IsNullOrEmpty(_email) && !String.IsNullOrEmpty(Birth.ToString());
+            return !String.IsNullOrEmpty(MyModel.Name) &&
+                   !String.IsNullOrEmpty(MyModel.Surname) &&
+                   !String.IsNullOrEmpty(MyModel.Email) && !String.IsNullOrEmpty(MyModel.Birth.ToString());
         }
         private void CloseImplementation(object obj)
         {

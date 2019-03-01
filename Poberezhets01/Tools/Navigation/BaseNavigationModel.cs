@@ -26,9 +26,8 @@ namespace Poberezhets01.Tools.Navigation
 
         public void Navigate(ViewType viewType)
         {
-            ViewsDictionary.Remove(ViewType.OutputInfo);
-            InitializeView(viewType);
-            
+            if (!ViewsDictionary.ContainsKey(viewType))
+                InitializeView(viewType);
             ContentOwner.ContentControl.Content = ViewsDictionary[viewType];
         }
 

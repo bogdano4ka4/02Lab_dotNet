@@ -20,6 +20,6 @@ namespace Poberezhets01.Tools.Interfaces
 
     internal interface IChinaHoroscope
     {
-        string GiveChinaHoroscope(DateTime date);
+        string GiveChinaHoroscope(DateTime? date);
     }
 }
