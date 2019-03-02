@@ -18,7 +18,7 @@ namespace Poberezhets01.ViewModels
 
         public Person MyModel
         {
-            get { return _user; }
+            get => _user;
             set
             {
                 _user = value;
@@ -37,13 +37,14 @@ namespace Poberezhets01.ViewModels
         {
             StationManager.CloseApp();
         }
+
         private void BackMenuCommand(object obj)
         {
             MyModel.Name = "";
             MyModel.Surname = "";
             MyModel.Birth = null;
             MyModel.Email = "";
-           NavigationManager.Instance.Navigate(ViewType.InputInfo);
+            NavigationManager.Instance.Navigate(ViewType.InputInfo);
         }
     }
 }

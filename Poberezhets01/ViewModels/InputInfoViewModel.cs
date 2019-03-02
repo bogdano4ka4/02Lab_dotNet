@@ -71,6 +71,7 @@ namespace Poberezhets01.ViewModels
                     if (!new EmailAddressAttribute().IsValid(MyModel.Email))
                     {
                         MessageBox.Show($"Email address {MyModel.Email}. is not valid.");
+                        MyModel.Email = "";
                         return false;
                     }
                 }
@@ -80,7 +81,8 @@ namespace Poberezhets01.ViewModels
                     return false;
                 }
 
-                if (!GoodBirthday(birth)) return false;
+                if (!GoodBirthday(birth))
+                    return false;
                 IsBirthday();
                 return true;
 

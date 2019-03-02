@@ -58,7 +58,7 @@ namespace Poberezhets01.Models
                 OnPropertyChanged("IsBirthday");
             }
         }
-        public bool IsBirthday => CheckBirthday();
+        public bool IsBirthday =>CheckBirthday();
         public string SunSign
         {
             get => WestHor();
@@ -141,8 +141,13 @@ namespace Poberezhets01.Models
 
         public string GiveChinaHoroscope(DateTime? date)
         {
-            int? year = date ?.Year % 12;
-            return Enum.GetName(typeof(ViewChinaHoroscope), year);
+            if (date != null)
+            {
+                int? year = date?.Year % 12;
+
+                return Enum.GetName(typeof(ViewChinaHoroscope), year);
+            }
+            return Enum.GetName(typeof(ViewChinaHoroscope), 0);
         }
         #endregion
 
