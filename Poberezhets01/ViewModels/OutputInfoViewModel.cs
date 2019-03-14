@@ -15,7 +15,6 @@ namespace Poberezhets01.ViewModels
         #endregion
         
         #region properties
-
         public Person MyModel
         {
             get => _user;
@@ -24,7 +23,6 @@ namespace Poberezhets01.ViewModels
                 _user = value;
                 OnPropertyChanged();
             }
-
         }
        
         #endregion

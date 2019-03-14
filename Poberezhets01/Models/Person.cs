@@ -4,12 +4,10 @@ using System.Runtime.CompilerServices;
 using Poberezhets01.Annotations;
 using Poberezhets01.Tools.Interfaces;
 namespace Poberezhets01.Models
-
 {
     internal class Person :  IChinaHoroscope, INotifyPropertyChanged
     {
         #region Fields
-
         private string _name;
         private string _surname;
         private string _email;
@@ -56,18 +54,34 @@ namespace Poberezhets01.Models
                 OnPropertyChanged("ChineseSign");
                 OnPropertyChanged("IsAdult");
                 OnPropertyChanged("IsBirthday");
+                OnPropertyChanged("BirthdayShort");
             }
         }
-        public bool IsBirthday =>CheckBirthday();
+        public string BirthdayShort
+        {
+            get { return _birth?.ToShortDateString(); }
+        }
+        public bool IsBirthday
+        {
+            get => CheckBirthday();
+        }
+       
         public string SunSign
         {
             get => WestHor();
         }
 
-        public string ChineseSign => GiveChinaHoroscope(Birth);
-        public bool IsAdult => CalculateAge() >= 18;
+        public string ChineseSign
+        {
+            get => GiveChinaHoroscope(Birth);
+        }
+       
+        public bool IsAdult
+        {
+            get => CalculateAge() >= 18;
+        }
+       
         #endregion
-
         #region Constructors
         public Person(string name, string surname, string email, DateTime birth)
         {

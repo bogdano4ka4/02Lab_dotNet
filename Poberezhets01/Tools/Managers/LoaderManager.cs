@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-
 namespace Poberezhets01.Tools.Managers
 {
     internal class LoaderManager
