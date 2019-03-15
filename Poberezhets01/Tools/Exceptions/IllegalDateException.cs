@@ -6,7 +6,8 @@ namespace Poberezhets01.Tools.Exceptions
     public class IllegalDateException : Exception
     {
 
-        public IllegalDateException(string message) : base(message)
+        public IllegalDateException(string birth) : 
+            base($"Your date {birth} is incorrect.")
         {
         }
 

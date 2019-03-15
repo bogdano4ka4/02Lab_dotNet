@@ -6,7 +6,8 @@ namespace Poberezhets01.Tools.Exceptions
     public class IllegalEmailException : Exception
     {
 
-        public IllegalEmailException(string message) : base(message)
+        public IllegalEmailException(string email) 
+            : base($"Your email {email} is not valid.")
         {
         }
     }

@@ -57,14 +57,14 @@ namespace Poberezhets01.ViewModels
                     }
                     GoodBirthday(birth);
                 }
-                catch (IllegalEmailException)
+                catch (IllegalEmailException ex)
                 {
-                    MessageBox.Show($"Operation failed.Reason:{Environment.NewLine} Email {MyModel.Email} is not valid.");
+                    MessageBox.Show($"Operation failed.Reason:{Environment.NewLine} {ex.Message}");
                     return false;
                 }
-                catch (IllegalDateException)
+                catch (IllegalDateException ex1)
                 {
-                    MessageBox.Show($"Your date {birth} is illegal!");
+                    MessageBox.Show($"Operation failed.Reason:{Environment.NewLine} {ex1.Message}");
                     return false;
                 }
                 catch (Exception ex)
